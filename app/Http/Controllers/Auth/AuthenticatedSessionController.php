@@ -53,6 +53,6 @@ class AuthenticatedSessionController extends Controller
         // Immediate redirect without conditions
         return $user->usertype === 'admin'
             ? redirect()->route('admin.dashboard')
-            : redirect()->route('dashboard');
+            : redirect()->route('home.userpage');
     }
 }
