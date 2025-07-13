@@ -37,30 +37,28 @@
                     @if (Route::has('login'))
                         @auth
                             <div class="dropdown ml-3">
-                                <!-- Trigger Button -->
-                                <a class="dropdown-toggle user-menu" href="#" role="button" data-toggle="dropdown">
+                                <!-- Button Trigger -->
+                                <button class="btn btn-user dropdown-toggle" type="button" data-toggle="dropdown">
                                     {{ Auth::user()->name }}
-                                </a>
+                                    <i class="fas fa-caret-down ml-1"></i>
+                                </button>
 
                                 <!-- Dropdown Menu -->
                                 <div class="dropdown-menu dropdown-menu-right">
-                                    <!-- Profile Link -->
                                     <a class="dropdown-item" href="{{ route('profile.edit') }}">
                                         <i class="fas fa-user mr-2"></i> Profile
                                     </a>
-
-                                    <!-- Logout Form -->
                                     <form method="POST" action="{{ route('logout') }}">
                                         @csrf
-                                        <a class="dropdown-item" href="{{ route('logout') }}"
+                                        <button type="submit" class="dropdown-item"
                                             onclick="event.preventDefault(); this.closest('form').submit();">
                                             <i class="fas fa-sign-out-alt mr-2"></i> Log Out
-                                        </a>
+                                        </button>
                                     </form>
                                 </div>
                             </div>
                         @else
-                            <a href="{{ route('login') }}"id="logincss"class="btn btn-primary">Login</a>
+                            <a href="{{ route('login') }}"id='logincss' class="btn btn-primary">Login</a>
                             <a href="{{ route('register') }}" class="btn btn-success">Register</a>
                         @endauth
                     @endif
