@@ -13,6 +13,7 @@ class RedirectAfterLogin
         $response = $next($request);
         
         if ($request->routeIs('login') && auth()->check()) {
+            //dd(auth()->user()->usertype);
             return auth()->user()->usertype === 'admin'
                 ? redirect()->route('admin.dashboard')
                 : redirect()->route('dashboard');

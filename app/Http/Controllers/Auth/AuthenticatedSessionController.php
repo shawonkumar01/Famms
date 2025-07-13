@@ -28,7 +28,10 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('dashboard', absolute: false));
+       // return redirect()->intended(route('dashboard', absolute: false));
+       return Auth::user()->usertype === 'admin'
+            ? redirect()->route('admin.dashboard')
+            : redirect()->route('home.userpage');
     }
 
     /**
@@ -48,11 +51,4 @@ class AuthenticatedSessionController extends Controller
 
     // app/Http/Controllers/Auth/AuthenticatedSessionController.php
 
-    protected function authenticated(Request $request, $user)
-    {
-        // Immediate redirect without conditions
-        return $user->usertype === 'admin'
-            ? redirect()->route('admin.dashboard')
-            : redirect()->route('home.userpage');
-    }
 }

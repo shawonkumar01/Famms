@@ -17,9 +17,11 @@ Route::middleware('auth')->group(function () {
         return view('dashboard');
     })->name('dashboard');
 
-    // Admin Routes
+    //Admin Routes
     Route::middleware('admin')->prefix('admin')->group(function () {
+        
         Route::get('/dashboard', function () {
+           // dd('something');
             return view('admin.dashboard');
         })->name('admin.dashboard');
     });

@@ -39,13 +39,10 @@
                     {{ __('Forgot your password?') }}
                 </a>
             @endif
-
-            <!-- Existing login form -->
-            <form method="POST" action="{{ route('login') }}">
-                @csrf
-                <!-- ... your form fields ... -->
-                <button type="submit" class="btn-login"> {{ __('Log in') }} </button>
-            </form>
+            <x-primary-button class="ms-4">
+                {{ __('Login') }}
+            </x-primary-button>
+           
         </div>
     </form>
 </x-guest-layout>
