@@ -28,10 +28,9 @@ Route::middleware('auth')->group(function () {
             return view('admin.dashboard');
         })->name('admin.dashboard');
 
-        Route::get('/categories', function () {
-            // dd('something');
-            return view('admin.categories');
-        })->name('admin.categories');
+        Route::get('/categories', [AdminController::class, 'show'])->name('admin.categories');
+        Route::post('/categories', [AdminController::class, 'store'])->name('categories.store');
+        Route::post('/categories/{id}', [AdminController::class, 'delete'])->name('delete_category');
 
     });
 });
