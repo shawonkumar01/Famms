@@ -44,4 +44,15 @@ class AuthenticatedSessionController extends Controller
 
         return redirect('/');
     }
+    // app/Http/Controllers/Auth/AuthenticatedSessionController.php
+
+    // app/Http/Controllers/Auth/AuthenticatedSessionController.php
+
+    protected function authenticated(Request $request, $user)
+    {
+        // Immediate redirect without conditions
+        return $user->usertype === 'admin'
+            ? redirect()->route('admin.dashboard')
+            : redirect()->route('dashboard');
+    }
 }
