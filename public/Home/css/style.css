@@ -17,7 +17,43 @@ body {
 .layout_padding {
   padding: 70px 0;
 }
+/* User Dropdown Styling */
+.user-menu {
+    color: #333;
+    font-weight: 500;
+    text-decoration: none;
+    padding: 8px 15px;
+    display: inline-block;
+    transition: all 0.3s;
+}
 
+.user-menu:hover {
+    background: rgba(0,0,0,0.05);
+}
+
+.dropdown-menu {
+    border: none;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    min-width: 200px;
+    padding: 0;
+}
+
+.dropdown-item {
+    padding: 8px 20px;
+    display: flex;
+    align-items: center;
+    transition: all 0.2s;
+}
+
+.dropdown-item:hover {
+    background: #f8f9fa;
+}
+
+.dropdown-item i {
+    width: 20px;
+    text-align: center;
+    color: #6c757d;
+}
 .layout_padding2 {
   padding: 75px 0;
 }
