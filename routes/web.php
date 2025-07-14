@@ -31,7 +31,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/categories', [AdminController::class, 'show'])->name('admin.categories');
         Route::post('/categories', [AdminController::class, 'store'])->name('categories.store');
         Route::post('/categories/{id}', [AdminController::class, 'delete_category'])->name('delete_category');
-        Route::get('/store_product', [AdminController::class, 'store_product'])->name('store_product');
+        Route::get('/view_product', [AdminController::class, 'view_product'])->name('view_product');
+        Route::post('/store_product', [AdminController::class, 'store_product'])->name('store_product');
 
     });
 });

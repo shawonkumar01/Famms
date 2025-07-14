@@ -22,7 +22,6 @@
             border: 2px solid white;
 
         }
-        
     </style>
 
 </head>
@@ -45,42 +44,43 @@
 
                                 <div class="mb-3">
                                     <label class="form-label">Product Title</label>
-                                    <input type="text" name="product_name" class="form-control"
+                                    <input type="text" name="product_name" class="form-control bg-white text-dark"
                                         placeholder="Write a name" required>
                                 </div>
 
                                 <div class="mb-3">
                                     <label class="form-label">Product Description</label>
-                                    <input type="text" name="description" class="form-control"
+                                    <input type="text" name="description" class="form-control bg-white text-dark"
                                         placeholder="Give a description of the product" required>
                                 </div>
 
                                 <div class="mb-3">
                                     <label class="form-label">Product Price</label>
-                                    <input type="text" name="price" class="form-control" placeholder="Enter price"
-                                        required>
+                                    <input type="text" name="price" class="form-control bg-white text-dark"
+                                        placeholder="Enter price" required>
                                 </div>
 
                                 <div class="mb-3">
                                     <label class="form-label">Product Quantity</label>
-                                    <input type="number" name="quantity" class="form-control"
+                                    <input type="number" name="quantity" class="form-control bg-white text-dark"
                                         placeholder="Enter quantity" required>
                                 </div>
 
                                 <div class="mb-3">
                                     <label class="form-label">Product Category</label>
-                                    <select name="category" class="form-select" required>
+                                    <select name="category" class="form-select bg-white text-dark" required>
                                         <option disabled selected>Select Category</option>
-                                        <option>Shirt</option>
-                                        <option>Pants</option>
-                                        <option>Shoes</option>
-                                        <!-- Or load from DB -->
+                                        @foreach($category as $category)
+                                        <option value="{{ $category->category_name }}">{{ $category->category_name }}
+                                        </option>
+                                        @endforeach
                                     </select>
                                 </div>
 
+
                                 <div class="mb-3">
                                     <label class="form-label">Product Image</label>
-                                    <input type="file" name="image" class="form-control" required>
+                                    <input type="file" name="image" required>
                                 </div>
 
                                 <div class="text-center">
@@ -90,6 +90,7 @@
                         </div>
                     </div>
                 </div>
+
 
             </div>
             @include('admin.script')
