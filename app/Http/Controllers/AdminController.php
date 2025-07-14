@@ -88,43 +88,5 @@ class AdminController extends Controller
         return redirect()->route('admin.show_product')
             ->with('deleted', 'Product deleted successfully!');
     }
-    public function edit_product($id)
-    {
-        $product = Product::find($id);
-        $categories = Category::all();
-        return view('admin.edit_product', compact('product', 'categories'));
-    }
-
-    public function update_product(Request $request, $id)
-    {
-        $product = Product::find($id);
-
-        $product->product_name = $request->product_name;
-        $product->description = $request->description;
-        $product->price = (float) $request->price;
-        $product->quantity = $request->quantity;
-        $product->discount_price = $request->discount_price ? (float) $request->discount_price : null;
-        $product->category = $request->category;
-
-        if ($request->hasFile('image')) {
-            // Delete old image
-            if ($product->image) {
-                $old_image = public_path('storage/product/' . $product->image);
-                if (file_exists($old_image)) {
-                    unlink($old_image);
-                }
-            }
-
-            // Upload new image
-            $image = $request->file('image');
-            $imagename = time() . '.' . $image->getClientOriginalExtension();
-            $image->storeAs('public/product', $imagename);
-            $product->image = $imagename;
-        }
-
-        $product->save();
-        return redirect()->route('admin.show_product')
-            ->with('success', 'Product updated successfully!');
-    }
 
 }

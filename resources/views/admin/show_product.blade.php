@@ -153,44 +153,41 @@
                             <th>Discount Price</th>
                             <th>Image</th>
                             <th>Delete</th>
-                            <th>Edit</th>
+                            
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($products as $product)
-                                            <tr>
-                                                <td>{{ $product->product_name }}</td>
-                                                <td>{{ Str::limit($product->description, 50) }}</td>
-                                                <td>{{ $product->quantity }}</td>
-                                                <td>{{ $product->category}}</td>
-                                                <td>${{ number_format((float) $product->price, 2) }}</td>
-                                                <td>
-                                                    ${{ $product->discount_price
+                                                                <tr>
+                                                                    <td>{{ $product->product_name }}</td>
+                                                                    <td>{{ Str::limit($product->description, 50) }}</td>
+                                                                    <td>{{ $product->quantity }}</td>
+                                                                    <td>{{ $product->category}}</td>
+                                                                    <td>${{ number_format((float) $product->price, 2) }}</td>
+                                                                    <td>
+                                                                        ${{ $product->discount_price
                             ? number_format((float) $product->discount_price, 2)
                             : 'N/A' }}
-                                                </td>
-                                                <!-- Image column moved to correct position -->
-                                                <td>
-                                                    @if($product->image)
-                                                        <img src="{{ asset('storage/product/' . $product->image) }}" class="product-image"
-                                                            alt="{{ $product->product_name }}">
-                                                    @else
-                                                        <span class="text-muted">No Image</span>
-                                                    @endif
-                                                </td>
-                                                <!-- Add delete and edit buttons -->
-                                                <td>
-                                                    <form action="{{ route('admin.delete_product', $product->id) }}" method="POST">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-delete"
-                                                            onclick="return confirm('Are you sure?')">Delete</button>
-                                                    </form>
-                                                </td>
-                                                <td>
-                                                <a href="{{ route('admin.edit_product', $product->id) }}" class="btn btn-edit">Edit</a>
-                                                </td>
-                                            </tr>
+                                                                    </td>
+                                                                    <!-- Image column moved to correct position -->
+                                                                    <td>
+                                                                        @if($product->image)
+                                                                            <img src="{{ asset('storage/product/' . $product->image) }}" class="product-image"
+                                                                                alt="{{ $product->product_name }}">
+                                                                        @else
+                                                                            <span class="text-muted">No Image</span>
+                                                                        @endif
+                                                                    </td>
+                                                                    <!-- Add delete and edit buttons -->
+                                                                    <td>
+                                                                        <form action="{{ route('admin.delete_product', $product->id) }}" method="POST">
+                                                                            @csrf
+                                                                            @method('DELETE')
+                                                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                                                        </form>
+                                                                    </td>
+                                                                    
+                                                                </tr>
                         @endforeach
                     </tbody>
                 </table>
