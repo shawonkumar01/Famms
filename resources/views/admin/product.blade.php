@@ -38,7 +38,7 @@
                             <h3 class="mb-0">Add Product</h3>
                         </div>
                         <div class="card-body bg-dark text-white">
-                            <form action="{{ route('store_product') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('admin.store_product') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
 
                                 <div class="mb-3">
@@ -74,9 +74,11 @@
                                     <label class="form-label">Product Category</label>
                                     <select name="category" class="form-select bg-white text-dark" required>
                                         <option disabled selected>Select Category</option>
+                                        
                                         @foreach($categories as $cat)
-                                        <option value="{{ $cat->categor_name }}">{{ $cat->category_name }}</option>
+                                        <option value="{{ $cat->category_name }}">{{ $cat->category_name }}</option>
                                         @endforeach
+                                        
                                     </select>
                                 </div>
 

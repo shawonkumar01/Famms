@@ -18,13 +18,7 @@ return new class extends Migration
         });
         
     }
-     protected $fillable = [
-        'name',
-        // Add other fillable fields here if needed
-    ];
-    /**
-     * Reverse the migrations.
-     */
+    
     public function down(): void
     {
         Schema::dropIfExists('categories');

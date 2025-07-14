@@ -17,7 +17,7 @@
       @include('admin.body')
       <!-- content-wrapper ends -->
       <!-- partial:partials/_footer.html -->
-      @include('home.footer')
+      @include('admin.footer')
       <!-- partial -->
     </div>
     <!-- main-panel ends -->

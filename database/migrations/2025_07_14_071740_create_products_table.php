@@ -12,18 +12,18 @@ return new class extends Migration {
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->string('product_name')->nullable();
-            $table->string('description')->nullable();
-            $table->string('image')->nullable();
-            $table->string('category')->nullable();
-            $table->string('quantity')->nullable();
-            $table->string('price')->nullable();
-            $table->string('discount_price')->nullable();
+            $table->string('product_name');
+            $table->text('description');
+            $table->string('image');
+            $table->string('category');
+            $table->integer('quantity');
+            $table->decimal('price', 10, 2);
+            $table->decimal('discount_price', 10, 2)->nullable();
             $table->timestamps();
         });
     }
 
-    /**
+    /**php 
      * Reverse the migrations.
      */
     public function down(): void

@@ -15,7 +15,7 @@ public function run()
 {
     \App\Models\User::create([
         'name' => 'Admin User',
-        'email' => 'admin@example.com',
+        'email' => 'admin@gmail.com',
         'password' => bcrypt('password'),
         'usertype' => 'admin',
         'email_verified_at' => now(),

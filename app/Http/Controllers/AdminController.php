@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Product;
 
+use function PHPUnit\Framework\returnSelf;
+
 class AdminController extends Controller
 {
     public function show()
@@ -40,34 +42,89 @@ class AdminController extends Controller
 
     public function store_product(Request $request)
     {
-        $request->validate([
-            'product_name' => 'required',
-            'description' => 'required',
-            'price' => 'required|numeric',
-            'quantity' => 'required|integer',
-            'discount_price' => 'nullable|numeric',
-            'category' => 'required|exists:categories,id',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
-        ]);
+
 
         $product = new Product();
         $product->product_name = $request->product_name;
         $product->description = $request->description;
-        $product->price = $request->price;
+        $product->price = (float) $request->price;
         $product->quantity = $request->quantity;
-        $product->discount_price = $request->discount_price;
-        $product->category_id = $request->category; // Changed to category_id if that's your column name
-        
+        $product->discount_price = $request->discount_price ? (float) $request->discount_price : null;
+        $product->category = $request->category;
+
+
         if ($request->hasFile('image')) {
             $image = $request->file('image');
-            $imagename = time().'.'.$image->getClientOriginalExtension();
-            $image->move('product', $imagename);
+            $imagename = time() . '.' . $image->getClientOriginalExtension();
+
+            // Store in public disk
+            $path = $image->storeAs('product', $imagename, 'public');
             $product->image = $imagename;
         }
-        
         $product->save();
-
-        return redirect()->route('admin.product') // Make sure this route exists
+        return redirect()->route('admin.view_product')
             ->with('success', 'Product added successfully!');
     }
+
+    public function show_product()
+    {
+        $products = Product::with('category')->get();
+        return view('admin.show_product', compact('products'));
+    }
+    public function delete_product($id)
+    {
+        $product = Product::find($id);
+
+        // Delete image file if exists
+        if ($product->image) {
+            $imagePath = public_path('storage/product/' . $product->image);
+            if (file_exists($imagePath)) {
+                unlink($imagePath);
+            }
+        }
+
+        $product->delete();
+
+        return redirect()->route('admin.show_product')
+            ->with('deleted', 'Product deleted successfully!');
+    }
+    public function edit_product($id)
+    {
+        $product = Product::find($id);
+        $categories = Category::all();
+        return view('admin.edit_product', compact('product', 'categories'));
+    }
+
+    public function update_product(Request $request, $id)
+    {
+        $product = Product::find($id);
+
+        $product->product_name = $request->product_name;
+        $product->description = $request->description;
+        $product->price = (float) $request->price;
+        $product->quantity = $request->quantity;
+        $product->discount_price = $request->discount_price ? (float) $request->discount_price : null;
+        $product->category = $request->category;
+
+        if ($request->hasFile('image')) {
+            // Delete old image
+            if ($product->image) {
+                $old_image = public_path('storage/product/' . $product->image);
+                if (file_exists($old_image)) {
+                    unlink($old_image);
+                }
+            }
+
+            // Upload new image
+            $image = $request->file('image');
+            $imagename = time() . '.' . $image->getClientOriginalExtension();
+            $image->storeAs('public/product', $imagename);
+            $product->image = $imagename;
+        }
+
+        $product->save();
+        return redirect()->route('admin.show_product')
+            ->with('success', 'Product updated successfully!');
+    }
+
 }

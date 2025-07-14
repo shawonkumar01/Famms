@@ -44,7 +44,7 @@
                 <div class="div_center">
 
                     <h2 class="h2_font">Add Category</h2>
-                    <form action="{{ route('categories.store') }}" method="POST">
+                    <form action="{{ route('admin.categories') }}" method="POST">
                         @csrf <!-- CSRF Protection - REQUIRED in Laravel -->
                         <div class="mb-2">
                             <input type="text" name="name" class="form-control bg-dark text-white"
