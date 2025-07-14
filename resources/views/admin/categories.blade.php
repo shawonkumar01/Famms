@@ -53,7 +53,7 @@
                         <button type="submit" class="btn btn-primary">Add Category</button>
                     </form>
                 </div>
-                  
+
                 <table class="center">
                     <tr>
                         <td>Category Name</td>
@@ -62,8 +62,14 @@
                     @foreach ($data as $data)
                         <tr>
                             <td>{{$data->category_name}}</td>
-                            <td><a onclick="return confirm('Are You Sure To Delete This!!!')" class="btn btn-danger"
-                                href="{{ route('delete_category', $data->id) }}">Delete</td>
+                            <td>
+                                <form action="{{ route('delete_category', $data->id) }}" method="POST"
+                                    style="display:inline-block;"
+                                    onsubmit="return confirm('Are You Sure To Delete This!!!');">
+                                    @csrf
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
+                            </td>
                         </tr>
                     @endforeach
 

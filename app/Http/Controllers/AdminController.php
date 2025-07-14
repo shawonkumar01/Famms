@@ -29,4 +29,8 @@ class AdminController extends Controller
         return redirect()->route('admin.categories')
             ->with('deleted', 'Category deleted successfully!');
     }
+    public function store_product() 
+    {
+        return view('admin.product');
+    }
 }
