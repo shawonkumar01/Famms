@@ -44,26 +44,37 @@
                         </h5>
                         @if($product->discount_price != null)
                         <h6 style="color:green">
-                          Discount Price:  ${{ $product->discount_price}}
+                            Discount Price: ${{ $product->discount_price}}
                         </h6>
                         <h6 style="text-decoration:line-through; color: red;">
-                          Product Price:  ${{ $product->price }}
+                            Product Price: ${{ $product->price }}
                         </h6>
                         @else
                         <h6>
-                           Product Price: ${{ $product->price }}
+                            Product Price: ${{ $product->price }}
                         </h6>
                         @endif
                         <h6>
                             Product Catagory: {{ $product->category }}
                         </h6>
                         <h6>
-                           Product Description: {{ $product->description }}
+                            Product Description: {{ $product->description }}
                         </h6>
                         <h6>
                             Avaiable Quantity: {{ $product->quantity }}
                         </h6>
-                        <a href=""class="btn btn-primary">Add to Cart</a>
+                        <form action="{{ route('add_cart', $product->id) }}" method="Post">
+                            @csrf
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <input type="number" name="quantity" value="1" min="1" style="width: 100px;">
+
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="submit" value="Add to cart">
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

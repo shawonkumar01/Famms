@@ -22,7 +22,7 @@ Route::middleware('auth')->group(function () {
     })->name('login');
     // Add this instead of the removed route
     Route::get('/userpage', [HomeController::class, 'index'])->name('home.userpage');
-   
+
     //Admin Routes
     Route::middleware('admin')->prefix('admin')->group(function () {
 
@@ -53,6 +53,8 @@ Route::middleware('auth')->group(function () {
         ->name('product_details');
     Route::post('/add_cart/{id}', [HomeController::class, 'add_cart'])
         ->name('add_cart');
+    Route::get('/show_cart', [HomeController::class, 'show_cart'])
+        ->name('show_cart');
 });
 
 require __DIR__ . '/auth.php';
