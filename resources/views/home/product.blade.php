@@ -13,12 +13,21 @@
                     <div class="box">
                         <div class="option_container">
                             <div class="options">
-                                <a href="" class="option1">
-                                    Men's Shirt
+                                <a href="{{ route('product_details', $prod->id) }}" class="option1">
+                                    Product Details
                                 </a>
-                                <a href="" class="option2">
-                                    Buy Now
-                                </a>
+                                <form action="{{ route('add_cart', $prod->id) }}" method="Post">
+                                    @csrf
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <input type="number" name="quantity" value="1" min="1" style="width: 100px;">
+
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input type="submit" value="Add to cart">
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                         <div class="img-box">
@@ -30,9 +39,9 @@
                             </h5>
                             @if($prod->discount_price != null)
                                 <h6 style="color:green">
-                                   ${{ $prod->discount_price}}
+                                    ${{ $prod->discount_price}}
                                 </h6>
-                                <h6 style="text-decoration:line-through; color: red;" >
+                                <h6 style="text-decoration:line-through; color: red;">
                                     ${{ $prod->price }}
                                 </h6>
                             @else
@@ -47,7 +56,7 @@
             @endforeach
             <span style="padding: top 20px;">
                 {!! $products->withQueryString()->links('pagination::bootstrap-5') !!}
-                
+
             </span>
 
         </div>
