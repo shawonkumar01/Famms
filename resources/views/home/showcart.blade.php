@@ -47,6 +47,7 @@
                 </tr>
             </thead>
             <tbody>
+                <?php $totalprice = 0; ?>
                 @foreach($cart as $item)
                 <tr>
                     <td>{{ $item->product_title }}</td>
@@ -57,15 +58,23 @@
                             style="width: 80px; height: auto;">
                     </td>
                     <td>
-
+                        <!-- Example delete button -->
+                        
                     </td>
                 </tr>
+                <?php $totalprice += $item->price ?>
                 @endforeach
             </tbody>
         </table>
 
+        <!-- ✅ Centered Total Price -->
+        <div style="text-align: center; margin-top: 20px;">
+            <h1>Total Price: ${{ $totalprice }}</h1>
+        </div>
+
+
         <!-- footer start -->
-        @include('home.footer')
+       
         <!-- footer end -->
         <div class="cpy_">
             <p class="mx-auto">© 2021 All Rights Reserved By <a href="https://html.design/">Free Html Templates</a><br>
