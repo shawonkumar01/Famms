@@ -49,20 +49,23 @@
             <tbody>
                 <?php $totalprice = 0; ?>
                 @foreach($cart as $item)
-                <tr>
-                    <td>{{ $item->product_title }}</td>
-                    <td>{{ $item->quantity }}</td>
-                    <td>${{ $item->price }}</td>
-                    <td>
-                        <img src="{{ asset('storage/product/' . $item->image) }}" alt="Product Image"
-                            style="width: 80px; height: auto;">
-                    </td>
-                    <td>
-                        <!-- Example delete button -->
-                        
-                    </td>
-                </tr>
-                <?php $totalprice += $item->price ?>
+                    <tr>
+                        <td>{{ $item->product_title }}</td>
+                        <td>{{ $item->quantity }}</td>
+                        <td>${{ $item->price }}</td>
+                        <td>
+                            <img src="{{ asset('storage/product/' . $item->image) }}" alt="Product Image"
+                                style="width: 80px; height: auto;">
+                        </td>
+                        <td>
+                            <form action="{{ route('remove_cart', $item->id) }}" method="POST"
+                                onsubmit="return confirm('Remove item?');">
+                                @csrf
+                                <button type="submit">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    <?php    $totalprice += $item->price ?>
                 @endforeach
             </tbody>
         </table>
@@ -71,26 +74,33 @@
         <div style="text-align: center; margin-top: 20px;">
             <h1>Total Price: ${{ $totalprice }}</h1>
         </div>
-
-
-        <!-- footer start -->
-       
-        <!-- footer end -->
-        <div class="cpy_">
-            <p class="mx-auto">© 2021 All Rights Reserved By <a href="https://html.design/">Free Html Templates</a><br>
-
-                Distributed By <a href="https://themewagon.com/" target="_blank">ThemeWagon</a>
-
-            </p>
+        <div style="text-align: center; margin-top: 20px;">
+            <h1>Proceed to Order</h1>
+            <a href="" class="btn btn-danger">Cash on Delivery</a>
+            <a href="" class="btn btn-danger">Card Payment</a>
         </div>
-        <!-- jQery -->
-        <script src="home/js/jquery-3.4.1.min.js"></script>
-        <!-- popper js -->
-        <script src="home/js/popper.min.js"></script>
-        <!-- bootstrap js -->
-        <script src="home/js/bootstrap.js"></script>
-        <!-- custom js -->
-        <script src="home/js/custom.js"></script>
+
+
+    </div>
+    <!-- footer start -->
+
+    <!-- footer end -->
+    <div class="cpy_">
+        <p class="mx-auto">© 2021 All Rights Reserved By <a href="https://html.design/">Free Html Templates</a><br>
+
+            Distributed By <a href="https://themewagon.com/" target="_blank">ThemeWagon</a>
+
+        </p>
+    </div>
+    <!-- jQery -->
+    <script src="home/js/jquery-3.4.1.min.js"></script>
+    <!-- popper js -->
+    <script src="home/js/popper.min.js"></script>
+    <!-- bootstrap js -->
+    <script src="home/js/bootstrap.js"></script>
+    <!-- custom js -->
+    <script src="home/js/custom.js"></script>
+
 </body>
 
 </html>

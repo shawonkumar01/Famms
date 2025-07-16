@@ -36,9 +36,9 @@ class HomeController extends Controller
         $cart->user_id = $user->id;
         $cart->product_title = $product->product_name;
         if ($product->discount_price != null) {
-            $cart->price = $product->discount_price*  $request->quantity;
+            $cart->price = $product->discount_price * $request->quantity;
         } else {
-            $cart->price = $product->price*$request->quantity;
+            $cart->price = $product->price * $request->quantity;
         }
         $cart->image = $product->image;
         $cart->product_id = $product->id;
@@ -51,14 +51,25 @@ class HomeController extends Controller
         return redirect()->route("home.userpage")->with('success', 'Product added to cart!');
 
     }
-    public function show_cart(){
+    public function show_cart()
+    {
 
         if (!Auth::check()) {
             return redirect("login");
         }
-        $id= Auth::user()->id;  
-        $cart=Cart::where('user_id','=',$id)->get();
-        return view('home.showcart',compact('cart'));   
+        $id = Auth::user()->id;
+        $cart = Cart::where('user_id', '=', $id)->get();
+        return view('home.showcart', compact('cart'));
     }
+    public function remove_cart($id)
+    {
+        $cartItem = Cart::find($id);
+        $cartItem->delete();
+
+        return redirect()->route('show_cart')->with('success', 'Item removed successfully!');
+
+    }
+
+
 }
 

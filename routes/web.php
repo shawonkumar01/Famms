@@ -55,6 +55,9 @@ Route::middleware('auth')->group(function () {
         ->name('add_cart');
     Route::get('/show_cart', [HomeController::class, 'show_cart'])
         ->name('show_cart');
+    Route::post('/remove_cart/{id}', [HomeController::class, 'remove_cart'])
+        ->name('remove_cart');
+
 });
 
 require __DIR__ . '/auth.php';
