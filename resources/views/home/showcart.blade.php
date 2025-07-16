@@ -35,6 +35,13 @@
         @include('home.header')
         <!-- end header section -->
         <!-- slider section -->
+        @if(session()->has('success'))
+            <div class="alert alert-success alert-dismissible" role="alert">
+                {{ session()->get('success') }}
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            </div>
+        @endif
+
         <table border="1" cellpadding="10" cellspacing="0"
             style="width: 75%; text-align: center; border-collapse: collapse; font-size: 15px; margin: 20px auto;">
             <thead style="background-color: #f2f2f2;">
@@ -61,7 +68,7 @@
                             <form action="{{ route('remove_cart', $item->id) }}" method="POST"
                                 onsubmit="return confirm('Remove item?');">
                                 @csrf
-                                <button type="submit">Delete</button>
+                                <button class="btn btn-danger" type="submit">Delete</button>
                             </form>
                         </td>
                     </tr>
@@ -76,10 +83,9 @@
         </div>
         <div style="text-align: center; margin-top: 20px;">
             <h1>Proceed to Order</h1>
-            <a href="" class="btn btn-danger">Cash on Delivery</a>
-            <a href="" class="btn btn-danger">Card Payment</a>
+            <a href="{{ route('cash_order') }}" class="btn btn-danger">Cash on Delivery</a>
+             <a href="" class="btn btn-danger">Pay Using Card</a>
         </div>
-
 
     </div>
     <!-- footer start -->

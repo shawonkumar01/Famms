@@ -57,6 +57,8 @@ Route::middleware('auth')->group(function () {
         ->name('show_cart');
     Route::post('/remove_cart/{id}', [HomeController::class, 'remove_cart'])
         ->name('remove_cart');
+    Route::get('/cash_order', [HomeController::class, 'cash_order'])
+        ->name('cash_order');
 
 });
 
