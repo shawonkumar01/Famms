@@ -24,7 +24,7 @@ Route::middleware('auth')->group(function () {
 
 // ✅ Routes for verified users
 Route::middleware(['auth', 'verified'])->group(function () {
-    
+
     // 👤 User Dashboard (after login for usertype != admin)
     Route::get('/userpage', [HomeController::class, 'index'])->name('home.userpage');
 
@@ -52,8 +52,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/order', [AdminController::class, 'order'])->name('admin.order');
         Route::get('/delivery/{id}', [AdminController::class, 'delivery'])->name('admin.delivery');
         Route::get('/print_pdf/{id}', [AdminController::class, 'print_pdf'])->name('admin.print_pdf');
+        Route::get('/send_email/{id}', [AdminController::class, 'send_email'])->name('admin.send_email');
+        Route::post('/send_user_email/{id}', [AdminController::class, 'send_user_email'])->name('admin.send_user_email');
+        Route::get('/admin/order/search', [AdminController::class, 'search_data'])->name('admin.order_search');
     });
 });
 
 // 🧠 Breeze Authentication routes (login, register, etc.)
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

@@ -21,8 +21,9 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="product.html">Products</a>
+                        <a class="nav-link" href="#products">Products</a>
                     </li>
+
                     <li class="nav-item">
                         <a class="nav-link" href="blog_list.html">Blog</a>
                     </li>
@@ -61,7 +62,7 @@
                                 </div>
                             </div>
                         @else
-                            <a href="{{ route('login') }}"id='logincss' class="btn btn-primary">Login</a>
+                            <a href="{{ route('login') }}" id='logincss' class="btn btn-primary">Login</a>
                             <a href="{{ route('register') }}" class="btn btn-success">Register</a>
                         @endauth
                     @endif

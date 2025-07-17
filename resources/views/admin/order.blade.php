@@ -127,6 +127,11 @@
                 overflow-x: auto;
             }
         }
+
+        .table-responsive {
+            overflow-x: auto;
+            width: 100%;
+        }
     </style>
 </head>
 
@@ -140,82 +145,94 @@
             @include('admin.navbar')
             <div class="main-panel">
                 <div class="content-wrapper">
-                    <div class="div_center">
-                        <h2 class="h2_font">All Orders</h2>
+
+                    <div class="row justify-content-center mb-4">
+                        <div class="col-lg-8 text-center">
+                            <h2 class="h2_font">All Orders</h2>
+                        </div>
                     </div>
 
-                    <!-- resources/views/admin/show_product.blade.php -->
+                    <div class="row justify-content-center mb-4">
+                        <div class="col-md-6">
+                            <form action="{{ route('admin.order_search') }}" method="get" class="d-flex gap-2">
+                                @csrf
+                                <input type="text" name="search" class="form-control" placeholder="Search for order">
+                                <input type="submit" value="Search" class="btn btn-primary">
+                            </form>
+                        </div>
+                    </div>
 
-                    <table class="order-table">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Address</th>
-                                <th>Category</th>
-                                <th>Phone</th>
-                                <th>Quantity</th>
-                                <th>Price</th>
-                                <th>Payment Status</th>
-                                <th>Delivery Status</th>
-                                <th>Image</th>
-                                <th>Delivery</th>
-                                <th>Download</th>
-
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            @foreach($order as $orders)
-                            <tr>
-                                <td>{{ $orders->name }}</td>
-                                <td>{{ $orders->email }}</td>
-                                <td>{{ $orders->address }}</td>
-                                <td>{{ $orders->product_title }}</td>
-                                <td>{{ $orders->phone }}</td>
-                                <td>{{ $orders->quantity }}</td>
-                                <td>{{ $orders->price }}</td>
-                                <td>{{ $orders->payment_status }}</td>
-                                <td>{{ $orders->delivery_status }}</td>
-                                <td>
-                                    <img src="{{ asset('storage/product/' . $orders->image) }}" class="order-image"
-                                        alt="{{ $orders->name }}">
-                                </td>
-                                @if ($orders->delivery_status == 'processing')
-                                <td>
-                                    <a href="{{ route('admin.delivery', $orders->id) }}"
-                                        class="btn btn-warning">Delivery</a>
-                                </td>
-                                @else
-                                <td>
-                                    <span style="color: green;">Delivered</span>
-                                </td>
-                                @endif
-                                <td>
-                                    <a href="{{ route('admin.print_pdf', $orders->id) }}" class="btn btn-success">Print
-                                        PDF</a>
-                                </td>
-
-                            </tr>
-
-                            @endforeach
-                        </tbody> 
-
-
-                    </table>
+                    <div class="row">
+                        <div class="col-12 table-responsive">
+                            <table class="order-table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Address</th>
+                                        <th>Category</th>
+                                        <th>Phone</th>
+                                        <th>Quantity</th>
+                                        <th>Price</th>
+                                        <th>Payment Status</th>
+                                        <th>Delivery Status</th>
+                                        <th>Image</th>
+                                        <th>Delivery</th>
+                                        <th>Download</th>
+                                        <th>Send Mail</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($order as $orders)
+                                        <tr>
+                                            <td>{{ $orders->name }}</td>
+                                            <td>{{ $orders->email }}</td>
+                                            <td>{{ $orders->address }}</td>
+                                            <td>{{ $orders->product_title }}</td>
+                                            <td>{{ $orders->phone }}</td>
+                                            <td>{{ $orders->quantity }}</td>
+                                            <td>{{ $orders->price }}</td>
+                                            <td>{{ $orders->payment_status }}</td>
+                                            <td>{{ $orders->delivery_status }}</td>
+                                            <td>
+                                                <img src="{{ asset('storage/product/' . $orders->image) }}"
+                                                    class="order-image" alt="{{ $orders->name }}">
+                                            </td>
+                                            <td>
+                                                @if ($orders->delivery_status == 'processing')
+                                                    <a href="{{ route('admin.delivery', $orders->id) }}"
+                                                        class="btn btn-warning">Delivery</a>
+                                                @else
+                                                    <span style="color: green;">Delivered</span>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                <a href="{{ route('admin.print_pdf', $orders->id) }}"
+                                                    class="btn btn-success">Print PDF</a>
+                                            </td>
+                                            <td>
+                                                <a href="{{ route('admin.send_email', $orders->id) }}"
+                                                    class="btn btn-primary">Send</a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
 
                 </div>
+
+                <!-- partial -->
+
+                <!-- content-wrapper ends -->
+                <!-- partial:partials/_footer.html -->
+
+                <!-- partial -->
             </div>
-            <!-- partial -->
-
-            <!-- content-wrapper ends -->
-            <!-- partial:partials/_footer.html -->
-
-            <!-- partial -->
+            <!-- main-panel ends -->
         </div>
-        <!-- main-panel ends -->
-    </div>
-    <!-- page-body-wrapper ends -->
+        <!-- page-body-wrapper ends -->
     </div>
     <!-- container-scroller -->
     <!-- plugins:js -->

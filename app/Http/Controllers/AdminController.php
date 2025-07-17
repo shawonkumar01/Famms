@@ -7,8 +7,8 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\Order;
 use Barryvdh\DomPDF\Facade\Pdf;
-
-use function PHPUnit\Framework\returnSelf;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\SendEmailNotification;
 
 class AdminController extends Controller
 {
@@ -111,6 +111,35 @@ class AdminController extends Controller
         $pdf = Pdf::loadView('admin.orders_pdf', compact('orders'));
 
         return $pdf->download('orders.pdf');
+    }
+    public function send_email($id)
+    {
+        $order = Order::find($id);
+        return view('admin.send_email', compact('order'));
+    }
+    public function send_user_email(Request $request, $id)
+    {
+        $order = Order::find($id);
+
+        $details = [
+            'greeting' => $request->greeting,
+            'body' => $request->body,
+            'actiontext' => $request->actiontext,
+            'actionurl' => $request->actionurl,
+            'endpart' => $request->endpart
+        ];
+
+        Notification::route('mail', $order->email)->notify(new SendEmailNotification($details));
+
+        return redirect()->back()->with('message', 'Email Sent Successfully!');
+    }
+    public function search_data(Request $request)
+    {
+        $searchtext= $request->search;
+        $order = Order::where('name', 'LIKE', "%{$searchtext}%")->get();
+
+        return view('admin.order', compact('order'));
+    
     }
 
 }
