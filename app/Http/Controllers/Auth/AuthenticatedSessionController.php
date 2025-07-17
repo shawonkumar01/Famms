@@ -25,14 +25,22 @@ class AuthenticatedSessionController extends Controller
     public function store(LoginRequest $request): RedirectResponse
     {
         $request->authenticate();
-
         $request->session()->regenerate();
 
-       // return redirect()->intended(route('dashboard', absolute: false));
-       return Auth::user()->usertype === 'admin'
+        $user = Auth::user();
+
+        // 🚨 Check email verified
+        if (!$user->hasVerifiedEmail()) {
+            return redirect()->route('verification.notice'); // shows the email/verify blade
+        }
+
+        // ✅ Redirect based on usertype
+        return $user->usertype === 'admin'
             ? redirect()->route('admin.dashboard')
             : redirect()->route('home.userpage');
     }
+
+
 
     /**
      * Destroy an authenticated session.

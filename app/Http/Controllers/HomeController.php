@@ -11,6 +11,9 @@ class HomeController extends Controller
 {
     public function index()
     {
+        if (!auth()->user()->hasVerifiedEmail()) {
+            return redirect()->route('verification.notice');
+        }
         $products = Product::paginate(9);
         return view("home.userpage", compact("products"));
     }
@@ -95,12 +98,12 @@ class HomeController extends Controller
             $order->payment_status = 'cash on delivery';
             $order->delivery_status = 'processing';
             $order->save();
-            $cart_id=$data->id;
-            $cart=Cart::find($cart_id); 
+            $cart_id = $data->id;
+            $cart = Cart::find($cart_id);
             $cart->delete();
         }
 
-         return redirect()->route('show_cart')->with('success', 'We have received your order!');
+        return redirect()->route('show_cart')->with('success', 'We have received your order!');
 
     }
 
