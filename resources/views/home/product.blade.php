@@ -4,7 +4,16 @@
             <h2>
                 Our <span>products</span>
             </h2>
+            <br><br>
+            <div>
+                <form method="GET" action="{{ route('product_search') }}">
+                    <input style="width: 500px;" type="text" name="search" placeholder="Search for something">
+                    <input type="submit" value="Search">
+                </form>
+            </div>
+
         </div>
+
         <div class="row">
 
             @foreach ($products as $prod)

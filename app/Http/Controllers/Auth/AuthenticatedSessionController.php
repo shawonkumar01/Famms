@@ -22,23 +22,35 @@ class AuthenticatedSessionController extends Controller
     /**
      * Handle an incoming authentication request.
      */
-    public function store(LoginRequest $request): RedirectResponse
-    {
-        $request->authenticate();
-        $request->session()->regenerate();
+    public function store(Request $request): RedirectResponse
+{
+    $request->validate([
+        'email' => 'required|email',
+        'password' => 'required',
+    ]);
 
-        $user = Auth::user();
-
-        // 🚨 Check email verified
-        if (!$user->hasVerifiedEmail()) {
-            return redirect()->route('verification.notice'); // shows the email/verify blade
-        }
-
-        // ✅ Redirect based on usertype
-        return $user->usertype === 'admin'
-            ? redirect()->route('admin.dashboard')
-            : redirect()->route('home.userpage');
+    if (! Auth::attempt($request->only('email', 'password'), $request->boolean('remember'))) {
+        return back()->withErrors([
+            'email' => 'Invalid credentials.',
+        ])->onlyInput('email');
     }
+
+    $request->session()->regenerate();
+
+    $user = Auth::user();
+
+    // If email is not verified
+    if (! $user->hasVerifiedEmail()) {
+        return redirect()->route('verification.notice');
+    }
+
+    // Redirect based on usertype
+    if ($user->usertype == 'admin') {
+        return redirect()->route('admin.dashboard');
+    } else {
+        return redirect()->route('home.userpage');
+    }
+}
 
 
 

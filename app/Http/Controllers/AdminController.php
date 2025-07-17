@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Order;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 use function PHPUnit\Framework\returnSelf;
 
@@ -87,6 +89,28 @@ class AdminController extends Controller
 
         return redirect()->route('admin.show_product')
             ->with('deleted', 'Product deleted successfully!');
+    }
+    public function order()
+    {
+        $order = Order::all();
+        return view('admin.order', compact('order'));
+    }
+
+    public function delivery($id)
+    {
+        $order = Order::find($id);
+        $order->delivery_status = "delivered";
+        $order->payment_status = "paid";
+        $order->save();
+        return redirect()->route("admin.order");
+    }
+    public function print_pdf($id)
+    {
+        $orders = Order::all();
+
+        $pdf = Pdf::loadView('admin.orders_pdf', compact('orders'));
+
+        return $pdf->download('orders.pdf');
     }
 
 }

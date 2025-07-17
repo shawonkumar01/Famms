@@ -11,9 +11,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-        if (!auth()->user()->hasVerifiedEmail()) {
-            return redirect()->route('verification.notice');
-        }
+        
         $products = Product::paginate(9);
         return view("home.userpage", compact("products"));
     }
@@ -105,6 +103,13 @@ class HomeController extends Controller
 
         return redirect()->route('show_cart')->with('success', 'We have received your order!');
 
+    }
+    public function product_search(Request $request){
+
+        $search_text= $request->search;
+        $products = Product::where('product_name','LIKE','%'.$search_text.'%')->orWhere('category','Like','%'.$search_text.'%')->paginate(9);
+
+        return view('home.userpage',compact('products'));
     }
 
 
