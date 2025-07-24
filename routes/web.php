@@ -35,6 +35,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/remove_cart/{id}', [HomeController::class, 'remove_cart'])->name('remove_cart');
     Route::get('/cash_order', [HomeController::class, 'cash_order'])->name('cash_order');
     Route::get('/product_search', [HomeController::class, 'product_search'])->name('product_search');
+    Route::get('/show_order', [HomeController::class, 'show_order'])->name('show_order');
 
     // 🛡️ Admin-only routes
     Route::middleware('admin')->prefix('admin')->group(function () {

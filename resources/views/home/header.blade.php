@@ -23,20 +23,27 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#products">Products</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#footer">Contact</a>
+                    </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="blog_list.html">Blog</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="contact.html">Contact</a>
-                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('show_cart') }}">CART</a>
                     </li>
-                    <form class="form-inline">
-                        <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit">
+                      <li class="nav-item">
+                        <a class="nav-link" href="{{ route('show_order') }}">Order</a>
+                    </li>
+                    <form class="form-inline" method="GET" action="{{ route('home.userpage') }}#products">
+                        <input type="text" name="search" id="header-search-input" placeholder="Search"
+                            style="display:none;">
+                        <button class="btn my-2 my-sm-0 nav_search-btn" type="submit">
                             <i class="fa fa-search" aria-hidden="true"></i>
                         </button>
+                    </form>
+                  
+
+
+
                     </form>
                     @if (Route::has('login'))
                         @auth
