@@ -1,53 +1,48 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Order List</title>
+    <title>Order PDF</title>
     <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 12px;
-        }
-        th, td {
-            border: 1px solid #333;
-            padding: 8px;
-        }
-        th {
-            background-color: #f4f4f4;
-        }
+        body { font-family: sans-serif; }
+        table { width: 100%; border-collapse: collapse; }
+        td, th { padding: 10px; border: 1px solid #ccc; text-align: left; }
     </style>
 </head>
 <body>
-    <h2>All Orders</h2>
+    <h2>Order Details</h2>
     <table>
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Address</th>
-                <th>Phone</th>
-                <th>Product</th>
-                <th>Quantity</th>
-                <th>Price</th>
-                <th>Payment</th>
-                <th>Delivery</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($orders as $order)
-                <tr>
-                    <td>{{ $order->name }}</td>
-                    <td>{{ $order->email }}</td>
-                    <td>{{ $order->address }}</td>
-                    <td>{{ $order->phone }}</td>
-                    <td>{{ $order->product_title }}</td>
-                    <td>{{ $order->quantity }}</td>
-                    <td>{{ $order->price }}</td>
-                    <td>{{ $order->payment_status }}</td>
-                    <td>{{ $order->delivery_status }}</td>
-                </tr>
-            @endforeach
-        </tbody>
+        <tr>
+            <th>Name</th>
+            <td>{{ $order->name }}</td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td>{{ $order->email }}</td>
+        </tr>
+        <tr>
+            <th>Address</th>
+            <td>{{ $order->address }}</td>
+        </tr>
+        <tr>
+            <th>Product</th>
+            <td>{{ $order->product_title }}</td>
+        </tr>
+        <tr>
+            <th>Quantity</th>
+            <td>{{ $order->quantity }}</td>
+        </tr>
+        <tr>
+            <th>Price</th>
+            <td>{{ $order->price }}</td>
+        </tr>
+        <tr>
+            <th>Payment Status</th>
+            <td>{{ $order->payment_status }}</td>
+        </tr>
+        <tr>
+            <th>Delivery Status</th>
+            <td>{{ $order->delivery_status }}</td>
+        </tr>
     </table>
 </body>
 </html>

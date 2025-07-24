@@ -106,11 +106,9 @@ class AdminController extends Controller
     }
     public function print_pdf($id)
     {
-        $orders = Order::all();
-
-        $pdf = Pdf::loadView('admin.orders_pdf', compact('orders'));
-
-        return $pdf->download('orders.pdf');
+        $order = Order::findOrFail($id); 
+        $pdf = Pdf::loadView('admin.orders_pdf', compact('order')); 
+        return $pdf->download('order-details.pdf');
     }
     public function send_email($id)
     {
@@ -135,11 +133,11 @@ class AdminController extends Controller
     }
     public function search_data(Request $request)
     {
-        $searchtext= $request->search;
+        $searchtext = $request->search;
         $order = Order::where('name', 'LIKE', "%{$searchtext}%")->get();
 
         return view('admin.order', compact('order'));
-    
+
     }
 
 }
