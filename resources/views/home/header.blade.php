@@ -21,10 +21,10 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#products">Products</a>
+                       <a class="nav-link" href="{{ route('home.userpage') }}#products">Products</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#footer">Contact</a>
+                        <a class="nav-link" href="{{ route('home.userpage') }}#footer">Contact</a>
                     </li>
 
                     <li class="nav-item">
